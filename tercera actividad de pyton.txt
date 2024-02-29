@@ -1,0 +1,73 @@
+
+class Producto:
+    def __init__(self, codigo, nombre, existencias, precio_unitario):
+        self.codigo = codigo
+        self.nombre = nombre
+        self.existencias = existencias
+        self.precio_unitario = precio_unitario
+
+    def __str__(self):
+        return f"Código: {self.codigo}, Nombre: {self.nombre}, Existencias: {self.existencias}, Precio unitario: ${self.precio_unitario}"
+
+class Inventario:
+    def __init__(self):
+        self.productos = {}
+
+    def agregar_producto(self, producto):
+        self.productos[producto.codigo] = producto
+
+    def registrar_compra(self, codigo_producto, cantidad):
+        if codigo_producto in self.productos:
+            self.productos[codigo_producto].existencias += cantidad
+            print("Compra registrada exitosamente.")
+        else:
+            print("El producto no está en el inventario.")
+
+    def registrar_venta(self, codigo_producto, cantidad):
+        if codigo_producto in self.productos:
+            if self.productos[codigo_producto].existencias >= cantidad:
+                self.productos[codigo_producto].existencias -= cantidad
+                print("Venta registrada exitosamente.")
+            else:
+                print("No hay suficientes existencias para realizar la venta.")
+        else:
+            print("El producto no está en el inventario.")
+
+    def mostrar_inventario(self):
+        print("Inventario:")
+        for producto in self.productos.values():
+            print(producto)
+
+def main():
+    inventario = Inventario()
+
+    while True:
+        print("\n1. Registrar compra")
+        print("2. Registrar venta")
+        print("3. Mostrar inventario")
+        print("4. Salir")
+        opcion = input("Seleccione una opción: ")
+
+        if opcion == "1":
+            codigo = input("Ingrese el código del producto: ")
+            nombre = input("Ingrese el nombre del producto: ")
+            existencias = int(input("Ingrese la cantidad de existencias: "))
+            precio_unitario = float(input("Ingrese el precio unitario del producto: $"))
+            producto = Producto(codigo, nombre, existencias, precio_unitario)
+            inventario.agregar_producto(producto)
+            cantidad_compra = int(input("Ingrese la cantidad de productos comprados: "))
+            inventario.registrar_compra(codigo, cantidad_compra)
+        elif opcion == "2":
+            inventario.mostrar_inventario()
+            codigo = input("Ingrese el código del producto a vender: ")
+            cantidad_venta = int(input("Ingrese la cantidad de productos a vender: "))
+            inventario.registrar_venta(codigo, cantidad_venta)
+        elif opcion == "3":
+            inventario.mostrar_inventario()
+        elif opcion == "4":
+            break
+        else:
+            print("Opción no válida.")
+
+if __name__ == "__main__":
+    main()

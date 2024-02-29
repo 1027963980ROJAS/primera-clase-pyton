@@ -1,0 +1,49 @@
+# Precios de los productos
+PRECIOS = {
+    "Computador de escritorio": 800,
+    "Tabletas": 300,
+    "Videobeam": 500,
+    "Televisores": 1000
+}
+
+def agregar_producto(carrito, producto):
+    if producto in carrito:
+        carrito[producto] += 1
+    else:
+        carrito[producto] = 1
+
+def mostrar_carrito(carrito):
+    print("Productos en el carrito:")
+    for producto, cantidad in carrito.items():
+        print(f"{producto}: {cantidad}")
+
+def calcular_total(carrito):
+    total = sum(PRECIOS[producto] * cantidad for producto, cantidad in carrito.items())
+    return total
+
+def main():
+    carrito = {}
+    
+    while True:
+        print("\n1. Computador de escritorio")
+        print("2. Tabletas")
+        print("3. Videobeam")
+        print("4. Televisores")
+        print("5. Facturar")
+        opcion = input("Seleccione una opción o '5' para facturar: ")
+
+        if opcion == "5":
+            break
+        elif opcion in ["1", "2", "3", "4"]:
+            producto = list(PRECIOS.keys())[int(opcion) - 1]
+            agregar_producto(carrito, producto)
+            print(f"{producto} agregado al carrito.")
+        else:
+            print("Opción no válida.")
+
+    mostrar_carrito(carrito)
+    total = calcular_total(carrito)
+    print(f"\nTotal a pagar: ${total}")
+
+if __name__ == "__main__":
+    main()
