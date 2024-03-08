@@ -1,0 +1,51 @@
+class Parqueadero:
+    def __init__(self):
+        self.contador = {'motos': 0, 'autos': 0, 'bicicletas': 0, 'patinetas': 0}
+
+    def ingresar_vehiculos(self):
+        print("Ingrese la cantidad de vehículos de cada tipo que están ingresando al parqueadero:")
+        for tipo in self.contador:
+            cantidad = int(input(f"Cantidad de {tipo}: "))
+            self.contador[tipo] += cantidad
+
+    def mostrar_total(self):
+        total_vehiculos = sum(self.contador.values())
+        print(f"Total de vehículos en el parqueadero: {total_vehiculos}")
+
+    def parqueadero_vacio(self):
+        return sum(self.contador.values()) == 0
+
+
+
+parqueadero = Parqueadero()
+
+parqueadero.ingresar_vehiculos()
+
+parqueadero.mostrar_total()
+
+if parqueadero.parqueadero_vacio():
+    print("El parqueadero está vacío.")
+    
+else:
+    print("Aún hay vehículos en el parqueadero.")
+def mostrar_menu():
+    print("\n*** Menú ***")
+    print("1. Ingresar vehículos")
+    print("2. Mostrar total de vehículos")
+    print("3. Salir")
+
+parqueadero = Parqueadero()
+
+while True:
+    mostrar_menu()
+    opcion = input("Seleccione una opción: ")
+
+    if opcion == '1':
+        parqueadero.ingresar_vehiculos()
+    elif opcion == '2':
+        parqueadero.mostrar_total()
+    elif opcion == '3':
+        print("Saliendo del programa brrrr...")
+        break
+    else:
+        print("Opción no válida. Por favor, seleccione una opción válida pendejo de miecda.")
